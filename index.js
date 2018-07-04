@@ -4,11 +4,11 @@ const findRoot = require('find-root');
 const fs = require('fs-extra');
 
 const prep = (projectPath, options = {}) => {
-  let root = path.resolve(findRoot(projectPath), options.directory);
+  const root = path.resolve(findRoot(projectPath), options.directory || '');
   let pruneJson = null;
   let usingCustomPrune = false;
   let prunePath = path.join(root, 'prune.json');
-  
+
   try {
     pruneJson = fs.readJsonSync(prunePath);
     usingCustomPrune = true;
