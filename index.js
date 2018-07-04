@@ -4,11 +4,11 @@ const findRoot = require('find-root');
 const fs = require('fs-extra');
 
 const prep = (projectPath, options = {}) => {
-  const root = findRoot(projectPath);
+  let root = path.resolve(findRoot(projectPath), options.directory);
   let pruneJson = null;
   let usingCustomPrune = false;
   let prunePath = path.join(root, 'prune.json');
-
+  
   try {
     pruneJson = fs.readJsonSync(prunePath);
     usingCustomPrune = true;
@@ -28,8 +28,6 @@ const prep = (projectPath, options = {}) => {
 
   const shouldPruneDir = pth => directories.includes(path.basename(pth).toLowerCase());
 
-  const modulePath = path.join(root, 'node_modules');
-
   let size = 0;
   let fileCount = 0;
   let dirCount = 0;
@@ -40,16 +38,16 @@ const prep = (projectPath, options = {}) => {
     if (stats.isFile() && shouldPruneFile(pth)) {
       size += stats.size;
       fileCount += 1;
-      filesToPrune.push(path.join(modulePath, pth));
+      filesToPrune.push(path.join(root, pth));
     }
     if (stats.isDirectory() && shouldPruneDir(pth)) {
       dirCount += 1;
-      dirsToPrune.push(path.join(modulePath, pth));
+      dirsToPrune.push(path.join(root, pth));
     }
   };
 
   const onFinish = () => ({
-    modulePath,
+    root,
     usingCustomPrune,
     prunePath,
     size,
@@ -59,7 +57,7 @@ const prep = (projectPath, options = {}) => {
     dirCount,
   });
 
-  return new Promise(resolve => walk(modulePath, process, true, () => resolve(onFinish())));
+  return new Promise(resolve => walk(root, process, true, () => resolve(onFinish())));
 };
 
 module.exports = {
