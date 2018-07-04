@@ -47,7 +47,7 @@ const prep = (projectPath, options = {}) => {
   };
 
   const onFinish = () => ({
-    root,
+    modulePath: root,
     usingCustomPrune,
     prunePath,
     size,
