@@ -9,7 +9,7 @@ const meow = require('meow');
 const cli = meow(
   `
 Usage
-  $ nm-prune <input>
+  $ prunedir <options>
 
 Options
   -f, --force  Skip confirmation and run
@@ -17,8 +17,8 @@ Options
   -d, --dir   Directory to prune. Default is cwd
 
 Examples
-  $ nm-prune --force
-  Scanning node_modules…
+  $ prunedir --force
+  Scanning directory…
   
   Pruning /Users/dave/code/nm-prune/node_modules
   Delete 1773 files (6.54 MB) and 126 folders
@@ -33,7 +33,7 @@ Examples
     alias: {
       f: 'force',
       l: 'prune-license',
-      d: 'directory'
+      d: 'directory',
     },
   }
 );
@@ -47,7 +47,7 @@ const log = str => console.log(str);
 
 log('Scanning node_modules…\n');
 
-nmPrune.prep(process.cwd(), { pruneLicense, directory }).then(info =>
+nmPrune.prep(process.cwd(), { pruneLicense, directory, }).then(info =>
   new Promise((resolve) => {
     log(`Pruning ${info.modulePath}`);
     if (info.usingCustomPrune) {
