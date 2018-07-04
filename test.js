@@ -1,7 +1,7 @@
 import path from 'path';
 import test from 'ava';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import m from 'nm-prune';
+import m from '.';
 
 let fileCountWithoutLicenses = 0;
 test('sanity test', t =>
@@ -17,7 +17,7 @@ test('sanity test', t =>
       size,
     } = info;
     t.is(typeof info, 'object');
-    t.is(modulePath, path.join(__dirname, 'node_modules'));
+    t.is(modulePath, __dirname);
     t.is(usingCustomPrune, false);
     t.pass(prunePath.includes('default-prune.json'));
     t.pass(size > 1000);
@@ -29,7 +29,7 @@ test('sanity test', t =>
   }));
 
 test('sanity test with license pruning', t =>
-  m.prep(process.cwd(), { pruneLicense: true, }).then((info) => {
+  m.prep(process.cwd(), { pruneLicense: true, directory: 'node_modules', }).then((info) => {
     const {
       fileCount,
       dirCount,
@@ -41,7 +41,7 @@ test('sanity test with license pruning', t =>
       size,
     } = info;
     t.is(typeof info, 'object');
-    t.is(modulePath, path.join(__dirname, 'node_modules'));
+    t.is(modulePath, path.resolve(__dirname, 'node_modules'));
     t.is(usingCustomPrune, false);
     t.pass(prunePath.includes('default-prune.json'));
     t.pass(size > 1000);
