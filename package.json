@@ -1,13 +1,13 @@
 {
-  "name": "nm-prune",
+  "name": "prunedir",
   "version": "4.0.0",
-  "description": "Prune unneeded files (.md, .td, etc..) from node_modules folder. Super handy for Electron and AWS Lambda.",
+  "description": "Prune unneeded files (.md, .td, etc..) from the directory",
   "license": "MIT",
-  "repository": "pingyhq/nm-prune",
+  "repository": "yusrilhs/prunedir",
   "author": {
-    "name": "DaveJ",
-    "email": "dave@davejeffery.com",
-    "url": "github.com/davej"
+    "name": "Yusril Herlian Syah",
+    "email": "yusrilhsyah@gmail.com",
+    "url": "github.com/yusrilhs"
   },
   "bin": "cli.js",
   "engines": {
@@ -26,8 +26,7 @@
     "cli",
     "prune",
     "node_modules",
-    "lambda",
-    "electron"
+    "assets"
   ],
   "dependencies": {
     "find-root": "^1.1.0",
