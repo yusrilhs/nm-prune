@@ -14,6 +14,7 @@ Usage
 Options
   -f, --force  Skip confirmation and run
   -l, --prune-license  Prune license files too
+  -d, --dir   Directory to prune. Default is cwd
 
 Examples
   $ nm-prune --force
@@ -32,19 +33,21 @@ Examples
     alias: {
       f: 'force',
       l: 'prune-license',
+      d: 'directory'
     },
   }
 );
 
 const force = !!cli.flags.force;
 const pruneLicense = !!cli.flags.pruneLicense;
+const directory = cli.flags.directory || '';
 
 // eslint-disable-next-line no-console
 const log = str => console.log(str);
 
 log('Scanning node_modules…\n');
 
-nmPrune.prep(process.cwd(), { pruneLicense, }).then(info =>
+nmPrune.prep(process.cwd(), { pruneLicense, directory }).then(info =>
   new Promise((resolve) => {
     log(`Pruning ${info.modulePath}`);
     if (info.usingCustomPrune) {
