@@ -1,6 +1,6 @@
 {
   "name": "prunedir",
-  "version": "4.0.0",
+  "version": "0.0.1",
   "description": "Prune unneeded files (.md, .td, etc..) from the directory",
   "license": "MIT",
   "repository": "yusrilhs/prunedir",
